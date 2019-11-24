@@ -1,4 +1,4 @@
-FROM php:5.6-apache
+FROM php:7.1-apache
 
 LABEL maintainer="guillermortega1e@gmail.com"
 
@@ -31,11 +31,11 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
     && docker-php-ext-install \
     bcmath bz2 calendar curl dom 
 RUN docker-php-ext-install ftp gd  
-RUN docker-php-ext-install json mbstring mcrypt mysqli opcache pdo pdo_mysql 
+RUN docker-php-ext-install json mbstring mysqli opcache pdo pdo_mysql 
 RUN docker-php-ext-install simplexml soap wddx xml xsl zip
 RUN pecl install amqp && docker-php-ext-enable amqp
 RUN apt-get install gnupg2 gnupg -y
-RUN apt-get install net-tools openssh-server nano vim mysql-client -y && apt-get install -y apache2 \
+RUN apt-get install net-tools openssh-server nano vim mariadb-client -y && apt-get install -y apache2 \
     && a2enmod rewrite \
     && a2enmod proxy \
     && a2enmod proxy_fcgi\
