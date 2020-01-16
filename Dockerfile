@@ -33,7 +33,7 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
 RUN docker-php-ext-install ftp gd  
 RUN docker-php-ext-install json mbstring mcrypt mysqli opcache pdo pdo_mysql 
 RUN docker-php-ext-install simplexml soap wddx xml xsl zip
-RUN pecl install amqp && pecl install mongodb && docker-php-ext-enable amqp && docker-php-ext-enable mongodb
+RUN pecl install amqp && docker-php-ext-enable amqp
 RUN apt-get install gnupg2 gnupg -y
 RUN apt-get install net-tools openssh-server nano vim mysql-client -y && apt-get install -y apache2 \
     && a2enmod rewrite \
