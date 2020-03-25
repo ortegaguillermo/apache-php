@@ -14,7 +14,7 @@ RUN mkdir /home/$LOCAL_USER/.ssh
 RUN passwd ${LOCAL_USER} -d
 RUN groups ${LOCAL_USER}
 
-RUN apt-get update && apt-get install -y --no-install-recommends locales wget apt-utils tcl build-essential -y
+RUN apt-get update && apt-get install -y --no-install-recommends locales wget zip unzip sshpass apt-utils tcl build-essential -y
 RUN set -x; \
     locale-gen es_MX.UTF-8 && \
     update-locale && \
@@ -63,7 +63,7 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh
 RUN chmod +x nodesource_setup.sh && ./nodesource_setup.sh
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt-get install sshpass nodejs yarn -y
+RUN apt-get install nodejs yarn -y
 RUN npm install -g sass less grunt
 RUN mkdir /ssl
 RUN openssl req -new -x509 -days 365 -keyout /ssl/privkey.pem -out /ssl/cert.pem -nodes -subj  '/O=VirtualHost Website Company name/OU=Virtual Host Website department/CN=backend.local.com'
