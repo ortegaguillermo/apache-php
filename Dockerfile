@@ -14,7 +14,7 @@ RUN mkdir /home/$LOCAL_USER/.ssh
 RUN passwd ${LOCAL_USER} -d
 RUN groups ${LOCAL_USER}
 
-RUN apt-get update && apt-get install -y --no-install-recommends locales wget apt-utils tcl build-essential -y
+RUN apt-get update && apt-get install -y --no-install-recommends locales wget zip unzip sshpass apt-utils tcl build-essential -y
 RUN set -x; \
     locale-gen es_MX.UTF-8 && \
     update-locale && \
@@ -44,7 +44,7 @@ ADD extrafiles/000-default.conf /etc/apache2/sites-available/000-default.conf
 ADD extrafiles/php.ini /usr/local/etc/php
 RUN curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
 RUN chmod +x nodesource_setup.sh && ./nodesource_setup.sh
-RUN apt-get install sshpass nodejs yarn -y
+RUN apt-get install nodejs yarn -y
 RUN npm install -g sass less grunt
 RUN groupmod -g $(id -u  ${LOCAL_USER}) www-data
 
