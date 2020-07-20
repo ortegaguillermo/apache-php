@@ -14,7 +14,7 @@ RUN mkdir /home/$LOCAL_USER/.ssh
 RUN passwd ${LOCAL_USER} -d
 RUN groups ${LOCAL_USER}
 
-RUN apt-get update && apt-get install -y --no-install-recommends locales wget zip unzip sshpass apt-utils tcl build-essential -y
+RUN apt-get update && apt-get install -y --no-install-recommends locales wget apt-utils tcl build-essential -y
 RUN set -x; \
     locale-gen es_MX.UTF-8 && \
     update-locale && \
@@ -24,7 +24,7 @@ RUN locale-gen en_US.UTF-8
 #RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
 RUN update-locale LANG=en_US.UTF-8
 RUN echo "export LANG=en_US.UTF-8\nexport LANGUAGE=en_US.UTF-8\nexport LC_ALL=en_US.UTF-8\nexport PYTHONIOENCODING=UTF-8" | tee -a /etc/bash.bashrc
-RUN apt-get install libmcrypt-dev xvfb libxi6 libgconf-2-4 telnet python-pip gcc g++ make librabbitmq-dev libbz2-dev libicu-dev libxml2-dev libxslt1-dev libfreetype6-dev \
+RUN apt-get install zip unzip sshpass libmcrypt-dev xvfb libxi6 libgconf-2-4 telnet python-pip gcc g++ make librabbitmq-dev libbz2-dev libicu-dev libxml2-dev libxslt1-dev libfreetype6-dev \
     libjpeg62-turbo-dev libpng-dev git vim openssh-server ocaml expect curl libssl-dev libcurl4-openssl-dev pkg-config -y
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-configure hash --with-mhash \
@@ -58,7 +58,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN rm /etc/apache2/sites-available/000-default.conf
 ADD extrafiles/000-default.conf /etc/apache2/sites-available/000-default.conf
 ADD extrafiles/php.ini /usr/local/etc/php
-RUN curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh
+RUN curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
 RUN chmod +x nodesource_setup.sh && ./nodesource_setup.sh
 RUN apt-get install nodejs yarn -y
 RUN npm install -g sass less grunt
