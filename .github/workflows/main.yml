@@ -1,0 +1,29 @@
+name: Docker Image build and push
+
+on:
+  push:
+    branches: [ "*" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Build
+      id: build
+      uses: cloudposse/github-action-docker-build-push@main
+      with:
+        registry: registry.hub.docker.com
+        organization: "${{ github.event.repository.owner.login }}"
+        repository: "${{ github.event.repository.name }}"
+        login: "${{ secrets.DOCKER_USERNAME }}"
+        password: "${{ secrets.DOCKER_PASSWORD }}"
+        #   platforms: linux/amd64,linux/arm64
+        image_name: ortegaguillermo/apache-php${{ env.GITHUB_REF }}
+        tags: |
+          type=ref,event=branch
+
+    outputs:
+      image: ${{ steps.build.outputs.image }}
+      tag: ${{ steps.build.outputs.tag }}
