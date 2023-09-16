@@ -25,8 +25,9 @@ RUN locale-gen en_US.UTF-8
 RUN update-locale LANG=en_US.UTF-8
 RUN echo "export LANG=en_US.UTF-8\nexport LANGUAGE=en_US.UTF-8\nexport LC_ALL=en_US.UTF-8\nexport PYTHONIOENCODING=UTF-8" | tee -a /etc/bash.bashrc
 
-RUN apt-get install zip unzip sshpass libzip-dev libonig-dev xvfb libxi6 libgconf-2-4 telnet python-pip gcc g++ make librabbitmq-dev libbz2-dev libicu-dev libxml2-dev libxslt1-dev libfreetype6-dev \
-    libjpeg62-turbo-dev libpng-dev git vim openssh-server ocaml expect curl libssl-dev libcurl4-openssl-dev pkg-config -y
+RUN apt-get install -y zip unzip sshpass libzip-dev libonig-dev xvfb libxi6 libgconf-2-4 telnet gcc g++ make librabbitmq-dev libbz2-dev libicu-dev libxml2-dev \
+    libxslt1-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev git vim openssh-server ocaml expect curl libssl-dev libcurl4-openssl-dev pkg-config
+# RUN apt-get install -y python-pip 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-configure hash --with-mhash \
     && docker-php-ext-install \
